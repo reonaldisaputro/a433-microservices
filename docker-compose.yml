@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  item-db:
+    # Menggunakan image mongo versi 3 dari Docker Hub
+    image: mongo:3
+    container_name: item-db
+    restart: always
+    volumes:
+      # Menyimpan data database ke volume bernama app-db
+      - app-db:/data/db
+
+  item-app:
+    # Menggunakan image item-app dari GitHub Container Registry
+    image: ghcr.io/reonaldisaputro/item-app:v1
+    container_name: item-app
+    restart: always
+    ports:
+      # Port host 80 diarahkan ke port 8080 container
+      - "80:8080"
+    depends_on:
+      # item-app dijalankan setelah item-db
+      - item-db
+
+volumes:
+  # Mendefinisikan volume bernama app-db
+  app-db:

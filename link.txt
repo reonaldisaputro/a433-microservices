@@ -1,0 +1,1 @@
+ghcr.io/reonaldisaputro/item-app:v1
